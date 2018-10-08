@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:main_app/Database/database_client.dart';
+import 'audioPlayer.dart';
 import 'package:main_app/Basic_elements/song.dart';
 
 class Library extends StatefulWidget {
@@ -18,9 +18,14 @@ class Library extends StatefulWidget {
 class _libraryState extends State<Library> {
   List<Song> songs;
   String primaryTitle = 'Antara';
-  DatabaseClient databaseClient;
   bool isLoading = true;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadSongs();
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -31,19 +36,8 @@ class _libraryState extends State<Library> {
 
   void loadSongs() async
   {
-
+    var songs = await AudioExtractor.allSongs();
+    print(songs);
   }
 
-  void initPlayer() async
-  {
-    DatabaseClient databaseClient;
-    await databaseClient.create();
-
-  }
-}
-
-class TabItem {
-  String title;
-  IconData icon;
-  TabItem(this.title, this.icon);
 }

@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import java.util.HashMap;
+
 public class Song {
 
     long mId;
@@ -79,4 +81,17 @@ public class Song {
     }
 
 
+    HashMap<String, Object> toMap() {
+        HashMap<String, Object> songHashMap = new HashMap<>();
+        songHashMap.put("id", mId);
+        songHashMap.put("artist", mArtist);
+        songHashMap.put("title", mTitle);
+        songHashMap.put("album", mAlbum);
+        songHashMap.put("albumId", mAlbumId);
+        songHashMap.put("duration", mDuration);
+        songHashMap.put("uri", mUri);
+        songHashMap.put("albumArt", mAlbumart);
+
+        return songHashMap;
+    }
 }
