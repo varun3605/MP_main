@@ -38,6 +38,8 @@ class _libraryState extends State<Library> {
   {
     var songs = await AudioExtractor.allSongs();
     print(songs);
+    var version = await AudioExtractor.platformVersion;
+    print(version);
   }
 
 }

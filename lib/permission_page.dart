@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:main_app/homepage.dart';
-import 'package:main_app/library.dart';
+import 'library.dart';
 import 'audioPlayer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,70 +7,32 @@ String per_rqst_status;
 bool per_denied_permanently;
 SharedPreferences preferences;
 
-void main() {
-  runApp(new MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: new SplashScreen(),
-      routes: <String, WidgetBuilder>{
-        '/HomePage': (BuildContext context) {
-          return new HomePage();
-        }
-      },
-    );
+class PermissionPage extends StatefulWidget {
+  _PermissionState createState() {
+    return new _PermissionState();
   }
 }
 
-class SplashScreen extends StatefulWidget {
-  SplashState createState() {
-    return new SplashState();
-  }
-}
-
-class SplashState extends State<SplashScreen> {
-
+class _PermissionState extends State<PermissionPage> {
   final GlobalKey<ScaffoldState> mScaffoldstate = new GlobalKey<ScaffoldState>();
-
-  Future checkFirstTime() async {
-    preferences = await SharedPreferences.getInstance();
-    bool _opened = (preferences.getBool('opened') ?? false);
-
-    if (_opened) {
-      startTimeSecond();
-    } else {
-      startTimeOne();
-    }
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    checkFirstTime();
+    chkPerstatus();
   }
 
-  startTimeOne() async {
-    var duration = new Duration(seconds: 2);
-    return new Timer(duration, nextPage);
-  }
-
-  startTimeSecond() async{
-    var duration = new Duration(seconds: 2);
-    return new Timer(duration, mainPage);
-  }
-
-  void mainPage()
-  {
-    checkPermissions();
-  }
-  void nextPage() {
-    Navigator.of(context).pushReplacementNamed('/HomePage');
+  void chkPerstatus() async{
+    preferences = await SharedPreferences.getInstance();
+    per_denied_permanently = (preferences.getBool('per_denied_perm') ?? false);
+    if (per_denied_permanently) {
+      per_rqst_status = "PERMISSION_DENIED_PERMANENTLY";
+      getPerstatus();
+    }
+    else {
+      checkPermissions();
+    }
   }
 
   void checkPermissions() async {
@@ -92,7 +52,8 @@ class SplashState extends State<SplashScreen> {
     per_rqst_status = await AudioExtractor.openSettings();
   }
 
-  void getPerstatus() async {
+  void getPerstatus()
+  {
     switch (per_rqst_status) {
       case "PERMISSION_GRANTED":
         print("Permission is granted");
@@ -124,14 +85,13 @@ class SplashState extends State<SplashScreen> {
         print("A error occurred");
     }
   }
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
       key: mScaffoldstate,
       body: Center(
-        child: Text('Hello'),
+        child: Text('Permissions'),
       ),
     );
   }

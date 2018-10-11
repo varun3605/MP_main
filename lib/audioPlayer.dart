@@ -104,15 +104,21 @@ class AudioExtractor {
     return version;
   }
 
+  static Future<String> requestPermission(int key) async
+  {
+    final String permission_rqst_status = await _channel.invokeMethod('request_permissions', {"status" : key});
+    return permission_rqst_status;
+  }
+
+  static Future<String> openSettings() async
+  {
+    final String per_current_status = await _channel.invokeMethod('open_settings');
+    return per_current_status;
+  }
   static Future<dynamic> allSongs() async {
     var completer = new Completer();
 
-    Map parameters = <String, dynamic>{
-      "permissions": true,
-      "permissionGranted": true,
-    };
-
-    List<dynamic> songs = await _channel.invokeMethod('getSongs', parameters);
+    List<dynamic> songs = await _channel.invokeMethod('getSongs');
     print(songs.runtimeType);
 
     var allSongs = songs.map((m) {

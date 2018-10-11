@@ -1,14 +1,14 @@
 package com.hvr.mainapp;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
 import java.util.HashMap;
 
-public class Song {
+public class Song
+{
 
     long mId;
     String mArtist;
@@ -19,7 +19,8 @@ public class Song {
     String mUri;
     String mAlbumart;
 
-    public Song(long id, String artist, String title, String album, long albumId, long duration) {
+    public Song(long id, String artist, String title, String album, long albumId, long duration)
+    {
         mId = id;
         mArtist = artist;
         mTitle = title;
