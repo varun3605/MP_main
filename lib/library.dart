@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'audioPlayer.dart';
+import 'package:main_app/Tablayout_library.dart';
 import 'package:main_app/Basic_elements/song.dart';
 
 class Library extends StatefulWidget {
@@ -18,28 +17,18 @@ class Library extends StatefulWidget {
 class _libraryState extends State<Library> {
   List<Song> songs;
   String primaryTitle = 'Antara';
-  bool isLoading = true;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    loadSongs();
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new Container(
-
+    return new Scaffold(
+      body: new TabPage(),
     );
   }
-
-  void loadSongs() async
-  {
-    var songs = await AudioExtractor.allSongs();
-    print(songs);
-    var version = await AudioExtractor.platformVersion;
-    print(version);
-  }
-
 }
