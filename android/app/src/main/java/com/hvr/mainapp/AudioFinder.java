@@ -43,7 +43,8 @@ public class AudioFinder {
                     songListCursor.getString(titleCol),
                     songListCursor.getString(albumCol),
                     songListCursor.getLong(albumArtCol),
-                    songListCursor.getLong(durationCol)
+                    songListCursor.getLong(durationCol),
+                    mContentResolver
             ));
 
 

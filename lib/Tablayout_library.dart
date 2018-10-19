@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'audioPlayer.dart';
 import 'album_list.dart';
 import 'artist_list.dart';
 import 'genre_list.dart';
 import 'playlist_list.dart';
 import 'track_list.dart';
+import 'song_data.dart';
+import 'audioPlayer.dart';
+
 
 var songs;
+SongData songData;
+bool isLoading;
 
 class TabPage extends StatefulWidget {
   TabPage();
@@ -23,6 +27,7 @@ class _TabPageState extends State<TabPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    isLoading = true;
     loadSongs();
   }
 
@@ -44,9 +49,9 @@ class _TabPageState extends State<TabPage> {
             ],
           ),
         ),
-        body: new TabBarView(
+        body: isLoading ? new CircularProgressIndicator() : new TabBarView(
           children: <Widget>[
-            new TracksList(),
+            new TracksList(songData),
             new AlbumsList(),
             new ArtistList(),
             new PlayList_List(),
@@ -56,9 +61,16 @@ class _TabPageState extends State<TabPage> {
       ),
     );
   }
-}
 
-void loadSongs() async {
-  songs = await AudioExtractor.allSongs();
-  print(songs);
+   void loadSongs() async {
+    songs = await AudioExtractor.allSongs();
+    print(songs);
+    if(!mounted)
+        return;
+
+    setState(() {
+          songData = new SongData(songs);
+          isLoading = false;
+        });
+  }
 }

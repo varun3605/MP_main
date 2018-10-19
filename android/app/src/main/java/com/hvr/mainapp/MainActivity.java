@@ -24,6 +24,7 @@ import io.flutter.plugins.GeneratedPluginRegistrant;
 public class MainActivity extends FlutterActivity implements MethodChannel.MethodCallHandler {
     private static final int REQUEST_CODE_READ_STORAGE = 1;
     private static final String CHANNEL = "com.hvr.mainapp/audiofinder";
+    private static final String CHANNEL_2 = "com.hvr.mainapp/database";
     private MethodChannel mMethodChannel;
     private Result mResult;
     private int prev_stat;

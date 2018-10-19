@@ -19,7 +19,7 @@ public class Song
     String mUri;
     String mAlbumart;
 
-    public Song(long id, String artist, String title, String album, long albumId, long duration)
+    public Song(long id, String artist, String title, String album, long albumId, long duration, ContentResolver contentResolver)
     {
         mId = id;
         mArtist = artist;
@@ -27,6 +27,8 @@ public class Song
         mAlbum = album;
         mAlbumId = albumId;
         mDuration = duration;
+        mUri = getUri(contentResolver);
+        mAlbumart = getAlbumart(contentResolver);
     }
 
     public long getId() {

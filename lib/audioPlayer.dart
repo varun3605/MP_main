@@ -10,9 +10,6 @@ class AudioExtractor {
   static const MethodChannel _channel =
       const MethodChannel('com.hvr.mainapp/audiofinder');
 
-  bool _Permissions = true;
-  bool _PermissionGranted = true;
-
   TimeHandler durnHandler;
   TimeHandler poshandler;
   ErrorHandler errorHandler;
